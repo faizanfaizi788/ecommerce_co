@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { signIn } from '../../apis/authService';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { signIn } from '../../apis/authService'; // Ensure signIn API call is correct
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,8 @@ const SignIn = () => {
 
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,14 +23,20 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       const response = await signIn(formData);
+
+      // Store user information in localStorage or sessionStorage
+      localStorage.setItem('user', JSON.stringify(response.data));
+
       setSuccess('Sign in successful');
       setError(null);
-      // Optionally redirect or handle successful sign-in
+
+      // Navigate to Home Screen after successful sign-in
+      navigate('/home');
     } catch (err) {
-      setError(err.message);
+      setError(err.message || 'Sign-in failed. Please try again.');
       setSuccess(null);
     }
   };
@@ -60,7 +69,7 @@ const SignIn = () => {
                 onChange={handleChange}
                 autoComplete="email"
                 required
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -85,7 +94,7 @@ const SignIn = () => {
                 onChange={handleChange}
                 autoComplete="current-password"
                 required
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -93,7 +102,7 @@ const SignIn = () => {
           <div>
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Sign in
             </button>
@@ -104,8 +113,8 @@ const SignIn = () => {
         {success && <p className="mt-4 text-center text-sm text-green-500">{success}</p>}
 
         <p className="mt-10 text-center text-sm text-gray-500">
-          Not a member?
-          <button 
+          Not a member?{' '}
+          <button
             onClick={() => window.location.href = '/sign-up'} // Replace with your signup route or logic
             className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
           >
