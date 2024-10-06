@@ -1,19 +1,17 @@
 import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-const Welcome = () => {
+const WelcomeScreen = () => {
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
 
-  useEffect(() => {
-    // Check if user data is stored in the cache (e.g., localStorage)
-    const userData = localStorage.getItem('user');
-    console.log("Welcome : userData", userData)
-    
-    if (userData) {
+  useEffect(() => {  
+    if (user._id) {
       // If user data exists, navigate to the home page
       navigate('/home');
     }
-  }, [navigate]); // Dependency array with navigate to prevent re-renders causing navigation issues
+  }, [navigate, user]); // Dependency array with navigate to prevent re-renders causing navigation issues
 
   const handleLogin = () => {
     navigate('/sign-in');
@@ -106,4 +104,4 @@ const Welcome = () => {
   );
 };
 
-export default Welcome;
+export default WelcomeScreen;

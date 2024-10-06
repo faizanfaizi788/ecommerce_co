@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { signUp } from '../../apis/authService';
 import { Link } from 'react-router-dom'; // Import Link component
+import { signUp } from '../../apis/services/authentication/authenticationService';
 
-const SignUp = () => {
+const SignUpScreen = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -158,4 +158,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpScreen;

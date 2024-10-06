@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import { signIn } from '../../apis/authService'; // Ensure signIn API call is correct
+import { useDispatch } from 'react-redux';
+import { addUser } from '../../features/user/userSlice';
+import { signIn } from '../../apis/services/authentication/authenticationService';
 
-const SignIn = () => {
+const SignInScreen = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -10,6 +12,7 @@ const SignIn = () => {
 
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate(); // Initialize useNavigate
 
@@ -25,11 +28,17 @@ const SignIn = () => {
     e.preventDefault();
 
     try {
-      const response = await signIn(formData);
-
-      // Store user information in localStorage or sessionStorage
-      localStorage.setItem('user', JSON.stringify(response.data));
-
+      const userInfo = await signIn(formData);
+      console.log("response",userInfo.token)
+     
+      const token = userInfo.token; // Assuming your API returns a token
+      if (!userInfo || !token) {
+        return;
+      }
+    
+      dispatch(addUser(userInfo));
+      localStorage.setItem('token', token);
+    
       setSuccess('Sign in successful');
       setError(null);
 
@@ -126,4 +135,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignInScreen;

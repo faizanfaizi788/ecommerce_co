@@ -1,4 +1,5 @@
-import client from './client';
+import client from "../../client/client";
+
 
 export const signUp = async (userData) => {
   try {
