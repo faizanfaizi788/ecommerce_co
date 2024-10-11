@@ -4,7 +4,7 @@ import ProductCardItem from './ProductCardItem';
 
 const ProductCardItemCollection = () => {
   // Get all products from the Redux store
-  const products = useSelector((state) => state.products.products);
+  const products = useSelector((state) => state.products.productsCollection);
 
   return (
     <div className="container mx-auto px-4">

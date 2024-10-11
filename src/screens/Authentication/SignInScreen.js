@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import { useDispatch } from 'react-redux';
-import { addUser } from '../../features/user/userSlice';
 import { signIn } from '../../apis/services/authentication/authenticationService';
+import { USER_AUTHENTICATED } from '../../constant/userAuthenticationStatus';
+import { authenticationStatus } from '../../features/authentication/authenticationSlice';
+import { userAdd } from '../../features/user/userSlice';
+import { HOME } from '../../navigation/router/routerName';
 
 const SignInScreen = () => {
   const [formData, setFormData] = useState({
@@ -36,14 +39,14 @@ const SignInScreen = () => {
         return;
       }
     
-      dispatch(addUser(userInfo));
+      dispatch(userAdd(userInfo));
       localStorage.setItem('token', token);
     
       setSuccess('Sign in successful');
       setError(null);
-
+      dispatch(authenticationStatus(USER_AUTHENTICATED));
       // Navigate to Home Screen after successful sign-in
-      navigate('/home');
+      navigate(HOME);
     } catch (err) {
       setError(err.message || 'Sign-in failed. Please try again.');
       setSuccess(null);

@@ -1,0 +1,48 @@
+
+import {
+  faMobileAlt,
+  faCar,
+  faTshirt,
+  faGamepad,
+  faLaptop,
+  faHeadphones,
+  faBook,
+  faUtensils,
+  faToolbox,
+  faGlobeAmericas,
+  faHome,
+  faBriefcase,
+  faShoppingCart,
+  faCouch,
+  faChild,
+  faGem,
+  faShieldAlt,
+  faBaby,
+  faTv,
+  faBicycle,
+  faHorse
+} from '@fortawesome/free-solid-svg-icons';
+
+export const categoriesIcons = {
+  "mobile-alt": faMobileAlt,
+  "car": faCar,
+  "tshirt": faTshirt,
+  "gamepad": faGamepad,
+  "laptop": faLaptop,
+  "headphones": faHeadphones,
+  "book": faBook,
+  "utensils": faUtensils,
+  "toolbox": faToolbox,
+  "globe-americas": faGlobeAmericas,
+  "home": faHome,
+  "briefcase": faBriefcase,
+  "shopping-cart": faShoppingCart,
+  "couch": faCouch,
+  "child": faChild,
+  "gem": faGem,
+  "shield-alt": faShieldAlt,
+  "baby-carriage": faBaby,
+  "tv": faTv,
+  "bicycle": faBicycle,
+  "paw": faHorse
+};

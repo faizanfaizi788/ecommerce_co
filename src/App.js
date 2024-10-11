@@ -1,15 +1,15 @@
-import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import AppRoutes from './navigation/AppRoutes';
 import useBootstrap from './hooks/useBootstrap';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
-  const {isAuthenticated} = useBootstrap();
-  console.log("isAuthenticated",isAuthenticated)
+  const { isAuthenticated } = useBootstrap();
+  const navigate = useNavigate();
+ 
+  console.log("isAuthenticated", isAuthenticated)
   return (
-    <Router>
-      <AppRoutes isAuthenticated={isAuthenticated}/>
-    </Router>
+    <AppRoutes isAuthenticated={isAuthenticated} />
   );
 }
 
